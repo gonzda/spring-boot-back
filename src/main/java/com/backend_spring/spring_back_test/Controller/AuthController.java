@@ -2,6 +2,7 @@ package com.backend_spring.spring_back_test.Controller;
 
 import com.backend_spring.spring_back_test.Models.User;
 import com.backend_spring.spring_back_test.Repository.UserRepository;
+import com.backend_spring.spring_back_test.Service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,12 +85,11 @@ public class AuthController {
                     .body(Map.of("msg", "La cuenta esta desactivada, por favor contacte al soporte"));
         }
 
-        String apiToken = java.util.UUID.randomUUID().toString().replace("-", "") +
-                java.util.Base64.getEncoder().encodeToString(user.getEmail().getBytes());
+        String jwt = JwtService.createToken(user.getEmail(), user.getRoles(), request.rememberMe);
 
         return ResponseEntity.ok(Map.of(
                 "msg", "Te has logeado como " + user.getRoles(),
-                "access_token", apiToken));
+                "access_token", jwt));
     }
 
     @PostMapping("/logout")
