@@ -1,6 +1,8 @@
 package com.backend_spring.spring_back_test.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.backend_spring.spring_back_test.Models.User;
@@ -58,5 +60,20 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getProfile() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email;
+
+        if (principal instanceof User) {
+            email = ((User) principal).getEmail();
+        } else {
+            email = principal.toString();
+        }
+
+        return ResponseEntity.ok(userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + email)));
     }
 }
