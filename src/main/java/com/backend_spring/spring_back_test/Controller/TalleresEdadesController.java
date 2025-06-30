@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/talleres-edades")
+@RequestMapping("/api/taller/talleres-edades")
 public class TalleresEdadesController {
     private final JdbcTemplate jdbcTemplate;
 
@@ -46,7 +46,6 @@ public class TalleresEdadesController {
         Object user = null;
 
         try {
-            // Check if rango exists
             List<Map<String, Object>> result = jdbcTemplate.queryForList(
                     "SELECT * FROM [M_RANGO_EDAD] WHERE [RANGO_chDESRANGO] LIKE ?", "%" + des_rango + "%");
             if (result.isEmpty()) {

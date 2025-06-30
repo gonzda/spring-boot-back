@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("api/temporadas")
+@RequestMapping("api/taller/temporadas")
 public class TemporadaController {
     private final JdbcTemplate jdbcTemplate;
 

@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/horarios")
+@RequestMapping("/api/taller/horarios")
 public class HorariosController {
     private final JdbcTemplate jdbcTemplate;
 

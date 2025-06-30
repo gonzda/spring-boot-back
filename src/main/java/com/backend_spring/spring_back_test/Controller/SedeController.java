@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/sedes")
+@RequestMapping("/api/taller/sedes")
 public class SedeController {
     private final JdbcTemplate dataSource;
 

@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/talleres")
+@RequestMapping("/api/taller/talleres")
 public class TalleresController {
     private final JdbcTemplate jdbcTemplate;
 
@@ -62,22 +62,13 @@ public class TalleresController {
         Integer situacion = request.get("COD_SITUACION") != null ? (Integer) request.get("COD_SITUACION") : 1;
         Integer estado = request.get("ESTADO") != null ? (Integer) request.get("ESTADO") : 1;
         try {
-            if (estado == 0) {
-                jdbcTemplate.update(
-                        "UPDATE [M_TALLER_DESC] SET [ESTADO] = 1 WHERE [TALLERDESC_P_inCODTALLER] = ?",
-                        id);
-                Map<String, Object> resp = new HashMap<>();
-                resp.put("message", "Taller restaurado correctamente");
-                return ResponseEntity.status(200).body(resp);
-            } else {
-                List<Map<String, Object>> result = jdbcTemplate.queryForList(
-                        "EXEC [SP_A_M_TALLER_DESC] ?,?,?,1,?,?",
-                        id, nombre, situacion, null, null);
-                String mensaje = result.isEmpty() ? "Taller actualizado" : String.valueOf(result.get(0).get("MENSAJE"));
-                Map<String, Object> resp = new HashMap<>();
-                resp.put("message", mensaje);
-                return ResponseEntity.status(201).body(resp);
-            }
+            List<Map<String, Object>> result = jdbcTemplate.queryForList(
+                    "EXEC [SP_A_M_TALLER_DESC] ?,?,?,?,?,?",
+                    id, nombre, situacion, estado, null, null);
+            String mensaje = result.isEmpty() ? "Taller actualizado" : String.valueOf(result.get(0).get("MENSAJE"));
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("message", mensaje);
+            return ResponseEntity.status(201).body(resp);
         } catch (Exception e) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("message", "Error al actualizar taller");
