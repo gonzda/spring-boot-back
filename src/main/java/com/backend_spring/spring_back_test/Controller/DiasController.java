@@ -57,7 +57,7 @@ public class DiasController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateDias(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String nombre = (String) request.get("NOMBRE");
         Integer estado = request.get("ESTADO") != null ? (Integer) request.get("ESTADO") : 1;
         try {
@@ -85,7 +85,7 @@ public class DiasController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteDias(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteDias(@PathVariable int id) {
         try {
             jdbcTemplate.update(
                     "UPDATE [M_GRUPO_DIAS] SET [ESTADO] = 0 WHERE [GRUPO_P_inCODGRUPO] = ?",

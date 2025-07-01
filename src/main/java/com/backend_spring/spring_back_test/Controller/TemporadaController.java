@@ -57,7 +57,7 @@ public class TemporadaController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateTemporada(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String nombre = (String) request.get("NOMBRE");
         Integer situacion = request.get("COD_SITUACION") != null ? (Integer) request.get("COD_SITUACION") : 1;
         Integer estado = request.get("ESTADO") != null ? (Integer) request.get("ESTADO") : 1;
@@ -87,7 +87,7 @@ public class TemporadaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteTemporada(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteTemporada(@PathVariable int id) {
         try {
             jdbcTemplate.update(
                     "UPDATE [M_TEMPORADA] SET [ESTADO] = 0 WHERE [TEMPORADA_P_inCODTEMPORADA] = ?",

@@ -73,7 +73,7 @@ public class TalleresEdadesController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateTalleresEdades(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String destaller = (String) request.get("COD_DESTALLER");
         Object rango = request.get("COD_RANGO");
         Object situacion = request.get("COD_SITUACION");
@@ -105,7 +105,7 @@ public class TalleresEdadesController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteTalleresEdades(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteTalleresEdades(@PathVariable int id) {
         try {
             jdbcTemplate.update(
                     "UPDATE [M_TALLER] SET [ESTADO] = 0 WHERE [TALLER_P_inCODTALLER]=?",

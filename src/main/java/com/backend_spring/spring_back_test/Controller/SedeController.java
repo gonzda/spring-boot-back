@@ -61,7 +61,7 @@ public class SedeController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateSede(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String nombre = (String) request.get("NOMBRE");
         String ubicacion = (String) request.get("UBICACION");
         Object situacion = request.get("COD_SITUACION");
@@ -92,7 +92,7 @@ public class SedeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteSede(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteSede(@PathVariable int id) {
         try {
             dataSource.update(
                     "UPDATE [M_SEDE] SET [ESTADO] = 0 WHERE [SEDE_P_inCODSEDE] = ?",

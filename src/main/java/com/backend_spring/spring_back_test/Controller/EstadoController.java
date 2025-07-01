@@ -45,7 +45,7 @@ public class EstadoController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateEstado(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String nombre = (String) request.get("NOMBRE");
         Integer estado = request.get("ESTADO") != null ? (Integer) request.get("ESTADO") : 1;
 
@@ -80,7 +80,7 @@ public class EstadoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteEstado(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteEstado(@PathVariable int id) {
         try {
             dataSource.update(
                     "UPDATE [M_ESTADOPROCESO] SET [ESTADO] = 0 WHERE [ESTADO_P_inCODPROCESO] = ?",

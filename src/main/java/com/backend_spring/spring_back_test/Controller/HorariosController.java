@@ -62,7 +62,7 @@ public class HorariosController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateHorarios(
             @RequestBody Map<String, Object> request,
-            @PathVariable("id") int id) {
+            @PathVariable int id) {
         String nombre = (String) request.get("NOMBRE");
         Object turno = request.get("COD_TURNO");
         Object situacion = request.get("COD_SITUACION");
@@ -97,7 +97,7 @@ public class HorariosController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteHorarios(@PathVariable("id") int id) {
+    public ResponseEntity<Map<String, Object>> deleteHorarios(@PathVariable int id) {
         try {
             jdbcTemplate.update(
                     "UPDATE [M_GRUPO_HORA] SET [ESTADO] = 0 WHERE [GRUPOHORA_P_inCODGRUPOHORA]=?",
